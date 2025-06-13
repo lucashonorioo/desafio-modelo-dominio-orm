@@ -2,6 +2,8 @@ package com.estudo.desafio_orm_sistema_evento.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +20,12 @@ public class Atividade {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "atividade")
+    private List<Bloco> blocos = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "atividades")
+    private List<Participante> participantes = new ArrayList<>();
 
     public Atividade(){
 
@@ -81,5 +89,13 @@ public class Atividade {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<Bloco> getBlocos() {
+        return blocos;
+    }
+
+    public List<Participante> getParticipantes() {
+        return participantes;
     }
 }
